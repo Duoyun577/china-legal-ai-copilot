@@ -1,18 +1,18 @@
-"""China Legal AI Copilot 的 Streamlit 合同审查界面。"""
+""""China Legal AI Copilot 的 Streamlit 合同审查界面。"""
 
 from __future__ import annotations
 
+import sys
+import os
+
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..")
+    )
+)
+
 from io import BytesIO
 from pathlib import Path
-from tempfile import TemporaryDirectory
-from typing import Callable
-
-import pandas as pd
-import streamlit as st
-from docx import Document
-from analytics.usage_tracker import (
-    EVENT_CONTRACT_REVIEW, EVENT_DOCUMENT_GENERATION, EVENT_LEGAL_CONSULTATION, UsageTracker,
-)
 from ai.providers.deepseek_provider import DeepSeekProviderError
 from case_manager import CaseDatabaseBackup, CaseInitializer, CaseManager, EvidenceManager, LawyerReviewService
 from case_manager.dashboard import build_lawyer_dashboard

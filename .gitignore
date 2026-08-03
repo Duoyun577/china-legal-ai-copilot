@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+.venv/
+
+# Environment
+.env
+
+# Database
+*.db
+data/
+
+# Logs
+logs/
+
+# Cache
+.cache/
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup
+backups/

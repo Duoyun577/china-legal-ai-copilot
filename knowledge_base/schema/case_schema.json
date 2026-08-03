@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://china-legal-ai-copilot.local/schema/case.schema.json",
+  "title": "中国司法案例知识库条目",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "case_name", "case_number", "court", "year", "cause", "case_facts",
+    "dispute_issues", "first_instance_result", "second_instance_result",
+    "judgment_reason", "legal_basis", "lawyer_strategy", "source_level", "source"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "case_name": {"type": "string", "minLength": 1},
+    "case_number": {"type": "string", "minLength": 1},
+    "court": {"type": "string", "minLength": 1},
+    "year": {"type": "integer", "minimum": 1949},
+    "case_type": {"type": "string"},
+    "cause": {"type": "string", "minLength": 1},
+    "case_facts": {"type": "string", "minLength": 1},
+    "dispute_issues": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "first_instance_result": {"type": "string"},
+    "second_instance_result": {"type": "string"},
+    "judgment_reason": {"type": "string", "minLength": 1},
+    "legal_basis": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "lawyer_strategy": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "keywords": {"type": "array", "items": {"type": "string"}},
+    "source_level": {"enum": ["A", "B", "C"]},
+    "source": {"type": "string", "format": "uri"}
+  }
+}

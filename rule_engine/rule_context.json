@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "description": "合同风险规则的上下文判断配置。本文件为 contract_rules.json 的兼容扩展，不替代既有关键词规则。",
+  "rules": [
+    {
+      "rule_id": "CR-001",
+      "context_type": "subject_identity_completeness",
+      "activation_logic": "主体信息字段缺失或主体名称、统一社会信用代码、签署主体之间不一致时触发；仅出现甲方、乙方不得单独触发。",
+      "required_signals": ["合同主体区块", "主体名称"],
+      "risk_signals": ["仅使用简称", "统一社会信用代码缺失", "主体名称与签章不一致", "住所或法定代表人缺失"],
+      "negative_signals": ["主体全称、统一社会信用代码、住所和签章主体信息完整且一致"],
+      "minimum_evidence_count": 1,
+      "review_questions": ["主体是否使用工商登记全称？", "统一社会信用代码是否完整？", "合同主体与签章主体是否一致？"],
+      "recommended_evidence": ["合同首部主体信息", "签署页", "企业登记信息"],
+      "version": "1.0"
+    },
+    {
+      "rule_id": "CR-005",
+      "context_type": "core_obligation_completeness",
+      "activation_logic": "标的、范围、数量、质量、价款或履行方式中的关键要素缺失、相互矛盾或以笼统表述替代时触发。",
+      "required_signals": ["服务内容", "标的", "项目", "服务"],
+      "risk_signals": ["相关服务", "具体以实际为准", "另行协商", "视情况", "必要时", "以双方后续沟通为准"],
+      "negative_signals": ["技术规格书", "服务范围", "数量", "质量标准", "履行方式"],
+      "minimum_evidence_count": 1,
+      "review_questions": ["标的和服务范围能否独立确定？", "数量、质量和交付物是否明确？", "是否存在未附的规格书或工作说明书？"],
+      "recommended_evidence": ["正文服务范围", "技术规格书", "工作说明书", "报价单"],
+      "version": "1.0"
+    },
+    {
+      "rule_id": "CR-009",
+      "context_type": "payment_term_completeness",
+      "activation_logic": "存在付款或结算约定，但金额、价税口径、付款节点、付款期限或结算依据缺失、模糊或相互矛盾时触发；仅出现付款一词不得单独触发。",
+      "required_signals": ["付款", "结算", "服务费", "价款"],
+      "risk_signals": ["尽快支付", "适时支付", "以实际发生为准", "项目完成后付款", "另行协商"],
+      "negative_signals": ["人民币", "含税", "不含税", "收到合格发票后", "个工作日内", "付款比例"],
+      "minimum_evidence_count": 1,
+      "review_questions": ["付款金额和税率是否明确？", "付款是否以可验证的交付或验收节点为条件？", "付款期限是否可计算？"],
+      "recommended_evidence": ["价款条款", "付款计划", "发票条款", "验收条款"],
+      "version": "1.0"
+    },
+    {
+      "rule_id": "CR-013",
+      "context_type": "delivery_term_completeness",
+      "activation_logic": "交付条款未明确交付日期、地点、方式、交付文件或风险转移时点，或使用笼统的交付条件时触发；仅出现交付不得单独触发。",
+      "required_signals": ["交付", "发货", "到货", "部署"],
+      "risk_signals": ["双方确认项目完成时", "另行通知", "合理期限", "指定地点", "视情况"],
+      "negative_signals": ["交付日期", "交付地点", "交付方式", "交付清单", "风险转移"],
+      "minimum_evidence_count": 1,
+      "review_questions": ["交付日期和地点是否明确？", "交付物与随附文件是否列明？", "风险转移和物流费用由谁承担？"],
+      "recommended_evidence": ["项目计划", "交付清单", "物流约定", "部署确认单"],
+      "version": "1.0"
+    },
+    {
+      "rule_id": "CR-025",
+      "context_type": "intellectual_property_allocation",
+      "activation_logic": "合同涉及软件、开发、设计、内容或成果交付，但未明确既有权利、交付成果、源代码或衍生成果的归属、许可范围或使用限制时触发。",
+      "required_signals": ["知识产权", "著作权", "源代码", "软件", "成果"],
+      "risk_signals": ["协商确定", "相关技术和成果", "另行约定", "实际情况"],
+      "negative_signals": ["归甲方所有", "归乙方所有", "许可范围", "源代码交付", "既有知识产权", "可再许可"],
+      "minimum_evidence_count": 1,
+      "review_questions": ["既有知识产权和新产生的成果是否区分？", "源代码、文档和衍生成果归谁所有？", "使用、修改、再许可的范围是否明确？"],
+      "recommended_evidence": ["知识产权条款", "源代码交付清单", "第三方组件清单", "许可协议"],
+      "version": "1.0"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://china-legal-ai-copilot.local/schema/judicial.schema.json",
+  "title": "中国司法解释知识库条目",
+  "description": "适用于 knowledge_base/judicial_interpretations 的司法解释对象；不包含任何具体司法解释内容。",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["document_id", "law_name", "topic", "keywords", "applicable_contracts", "risk_rules", "source"],
+  "properties": {
+    "document_id": {"type": "string", "minLength": 1},
+    "law_name": {"type": "string", "minLength": 1},
+    "article": {"type": "string"},
+    "chapter": {"type": "string"},
+    "topic": {"type": "string", "minLength": 1},
+    "keywords": {"type": "array", "items": {"type": "string"}},
+    "applicable_contracts": {"type": "array", "items": {"type": "string"}},
+    "risk_rules": {"type": "array", "items": {"type": "string", "pattern": "^CR-[0-9]{3}$"}},
+    "source": {"type": "string", "format": "uri"},
+    "title": {"type": "string"},
+    "issuing_authority": {"type": "string"},
+    "document_number": {"type": "string"},
+    "promulgation_date": {"type": "string", "format": "date"},
+    "effective_date": {"type": "string", "format": "date"},
+    "status": {"type": "string"},
+    "related_laws": {"type": "array", "items": {"type": "string"}},
+    "articles": {"type": "array", "items": {"type": "object"}}
+  }
+}

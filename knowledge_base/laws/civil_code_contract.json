@@ -1,0 +1,571 @@
+[
+  {
+    "law_id": "CC-CONTRACT-六十五",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百六十五条",
+    "chapter": "第一分编 通则 第一章 一般规定",
+    "topic": "合同效力",
+    "legal_text": "依法成立的合同，受法律保护。依法成立的合同，仅对当事人具有法律约束力，但是法律另有规定的除外。",
+    "keywords": [
+      "依法成立",
+      "合同约束力",
+      "合同相对性"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-001",
+      "CR-004",
+      "CR-008"
+    ],
+    "lawyer_application": "审查主体、签署和生效安排，确认实际履约安排未突破合同相对性。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-六十九",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百六十九条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "合同形式",
+    "legal_text": "当事人订立合同，可以采用书面形式、口头形式或者其他形式。书面形式是合同书、信件、电报、电传、传真等可以有形地表现所载内容的形式。",
+    "keywords": [
+      "书面形式",
+      "电子数据",
+      "合同形式"
+    ],
+    "applicable_contracts": [
+      "各类商业合同",
+      "电子合同"
+    ],
+    "risk_rules": [
+      "CR-002",
+      "CR-008"
+    ],
+    "lawyer_application": "对电子邮件、平台订单和电子签名建立可追溯的签约与留档规则。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-七十",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百七十条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "合同核心条款",
+    "legal_text": "合同的内容由当事人约定，一般包括当事人名称或者姓名和住所、标的、数量、质量、价款或者报酬、履行期限、地点和方式、违约责任、解决争议的方法等条款。",
+    "keywords": [
+      "合同内容",
+      "标的",
+      "价款",
+      "违约责任",
+      "争议解决"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-001",
+      "CR-005",
+      "CR-009",
+      "CR-013",
+      "CR-017",
+      "CR-029"
+    ],
+    "lawyer_application": "以本条为合同清单基线，逐项核查必备商业条款和附件。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-七十一",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百七十一条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "要约",
+    "legal_text": "当事人订立合同，可以采取要约、承诺方式或者其他方式。",
+    "keywords": [
+      "要约",
+      "承诺",
+      "合同订立"
+    ],
+    "applicable_contracts": [
+      "采购合同",
+      "销售合同",
+      "服务合同"
+    ],
+    "risk_rules": [
+      "CR-005",
+      "CR-008"
+    ],
+    "lawyer_application": "明确报价、订单、确认函的法律性质及失效、撤回规则。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-七十二",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百七十二条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "要约邀请",
+    "legal_text": "要约是希望与他人订立合同的意思表示，该意思表示应当符合内容具体确定并表明经受要约人承诺，要约人即受该意思表示约束等条件。",
+    "keywords": [
+      "要约",
+      "具体确定",
+      "受约束"
+    ],
+    "applicable_contracts": [
+      "采购合同",
+      "销售合同",
+      "服务合同"
+    ],
+    "risk_rules": [
+      "CR-005",
+      "CR-009"
+    ],
+    "lawyer_application": "避免将非最终报价误写为不可撤销要约，明确有效期与约束条件。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-九十",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百九十条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "合同成立",
+    "legal_text": "当事人采用合同书形式订立合同的，自当事人均签名、盖章或者按指印时合同成立。",
+    "keywords": [
+      "签名",
+      "盖章",
+      "合同成立"
+    ],
+    "applicable_contracts": [
+      "各类书面商业合同"
+    ],
+    "risk_rules": [
+      "CR-001",
+      "CR-002",
+      "CR-008"
+    ],
+    "lawyer_application": "明确签署页、盖章要求、签署顺序与扫描件或电子签署的效力。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-九十五",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百九十五条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "预约合同",
+    "legal_text": "当事人约定在将来一定期限内订立合同的认购书、订购书、预订书等，构成预约合同。当事人一方不履行预约合同约定的订立合同义务的，对方可以请求其承担预约合同的违约责任。",
+    "keywords": [
+      "预约合同",
+      "认购书",
+      "订购书",
+      "违约责任"
+    ],
+    "applicable_contracts": [
+      "认购合同",
+      "框架协议",
+      "意向书"
+    ],
+    "risk_rules": [
+      "CR-005",
+      "CR-017"
+    ],
+    "lawyer_application": "区分意向文件与预约合同，明确是否负有订立本约的义务及违约后果。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-九十六",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百九十六条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "格式条款提示",
+    "legal_text": "格式条款是当事人为了重复使用而预先拟定，并在订立合同时未与对方协商的条款。提供格式条款的一方应当遵循公平原则确定当事人之间的权利和义务，并采取合理的方式提示对方注意免除或者减轻其责任等与对方有重大利害关系的条款。",
+    "keywords": [
+      "格式条款",
+      "提示说明",
+      "公平原则",
+      "免责"
+    ],
+    "applicable_contracts": [
+      "平台服务合同",
+      "采购合同",
+      "标准合同"
+    ],
+    "risk_rules": [
+      "CR-006",
+      "CR-015",
+      "CR-018"
+    ],
+    "lawyer_application": "对免责、责任上限、自动验收等条款采用加粗、单独提示和确认留痕。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-九十七",
+    "law_name": "中华人民共和国民法典",
+    "article": "第四百九十七条",
+    "chapter": "第一分编 通则 第二章 合同的订立",
+    "topic": "格式条款无效",
+    "legal_text": "有本法第一编第六章第三节和本法第五百零六条规定的无效情形，或者提供格式条款一方不合理地免除或者减轻其责任、加重对方责任、限制对方主要权利的，该格式条款无效。",
+    "keywords": [
+      "格式条款无效",
+      "不合理免责",
+      "限制主要权利"
+    ],
+    "applicable_contracts": [
+      "平台服务合同",
+      "标准合同"
+    ],
+    "risk_rules": [
+      "CR-006",
+      "CR-018"
+    ],
+    "lawyer_application": "删除单方解释、概不负责及不合理限制救济的标准条款。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百零二",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百零二条",
+    "chapter": "第一分编 通则 第三章 合同的效力",
+    "topic": "合同生效",
+    "legal_text": "依法成立的合同，自成立时生效，但是法律另有规定或者当事人另有约定的除外。",
+    "keywords": [
+      "合同生效",
+      "成立时生效",
+      "审批"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-008"
+    ],
+    "lawyer_application": "将成立、生效、审批、备案和条件成就的时间及后果分开约定。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百零七",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百零七条",
+    "chapter": "第一分编 通则 第三章 合同的效力",
+    "topic": "争议解决条款效力",
+    "legal_text": "合同不生效、无效、被撤销或者终止的，不影响合同中有关解决争议方法的条款的效力。",
+    "keywords": [
+      "争议解决",
+      "独立性",
+      "仲裁条款"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-029",
+      "CR-030"
+    ],
+    "lawyer_application": "确保争议解决条款独立、明确且与主合同其他条款不冲突。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百零九",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百零九条",
+    "chapter": "第一分编 通则 第四章 合同的履行",
+    "topic": "诚信履行",
+    "legal_text": "当事人应当按照约定全面履行自己的义务。当事人应当遵循诚信原则，根据合同的性质、目的和交易习惯履行通知、协助、保密等义务。",
+    "keywords": [
+      "全面履行",
+      "诚信原则",
+      "通知",
+      "协助",
+      "保密"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-010",
+      "CR-011",
+      "CR-020",
+      "CR-028"
+    ],
+    "lawyer_application": "在主给付义务外，明确通知、协助、保密和资料交付等附随义务。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百一十",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百一十条",
+    "chapter": "第一分编 通则 第四章 合同的履行",
+    "topic": "约定不明补充",
+    "legal_text": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。",
+    "keywords": [
+      "约定不明",
+      "补充协议",
+      "交易习惯"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-005",
+      "CR-009",
+      "CR-013"
+    ],
+    "lawyer_application": "避免依赖事后补充；对关键事项设置明确的优先级和书面变更程序。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百一十一",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百一十一条",
+    "chapter": "第一分编 通则 第四章 合同的履行",
+    "topic": "履行规则",
+    "legal_text": "质量要求不明确的，按照强制性国家标准履行；没有强制性国家标准的，按照推荐性国家标准履行；没有推荐性国家标准的，按照行业标准履行；没有国家标准、行业标准的，按照通常标准或者符合合同目的的特定标准履行。",
+    "keywords": [
+      "质量标准",
+      "履行地点",
+      "履行期限",
+      "价款"
+    ],
+    "applicable_contracts": [
+      "买卖合同",
+      "承揽合同",
+      "服务合同"
+    ],
+    "risk_rules": [
+      "CR-005",
+      "CR-014",
+      "CR-016"
+    ],
+    "lawyer_application": "在合同中优先明确可量化验收标准，避免事后适用默认标准。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百二十五",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百二十五条",
+    "chapter": "第一分编 通则 第五章 合同的保全",
+    "topic": "同时履行抗辩",
+    "legal_text": "当事人互负债务，没有先后履行顺序的，应当同时履行。一方在对方履行之前有权拒绝其履行要求；一方在对方履行债务不符合约定时，有权拒绝其相应的履行要求。",
+    "keywords": [
+      "同时履行",
+      "履行抗辩",
+      "对等给付"
+    ],
+    "applicable_contracts": [
+      "买卖合同",
+      "服务合同",
+      "承揽合同"
+    ],
+    "risk_rules": [
+      "CR-009",
+      "CR-013",
+      "CR-014"
+    ],
+    "lawyer_application": "设计付款与交付、验收相匹配的节点，避免权利义务明显失衡。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百二十六",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百二十六条",
+    "chapter": "第一分编 通则 第五章 合同的保全",
+    "topic": "先履行抗辩",
+    "legal_text": "当事人互负债务，有先后履行顺序，应当先履行债务一方未履行的，后履行一方有权拒绝其履行要求。",
+    "keywords": [
+      "先履行抗辩",
+      "付款条件",
+      "履行顺序"
+    ],
+    "applicable_contracts": [
+      "买卖合同",
+      "服务合同",
+      "承揽合同"
+    ],
+    "risk_rules": [
+      "CR-009",
+      "CR-013"
+    ],
+    "lawyer_application": "明确先后履行顺序及付款前提，避免验收与付款条件相互矛盾。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百二十七",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百二十七条",
+    "chapter": "第一分编 通则 第五章 合同的保全",
+    "topic": "不安抗辩",
+    "legal_text": "应当先履行债务的当事人，有确切证据证明对方经营状况严重恶化、转移财产逃避债务、丧失商业信誉或者有丧失或者可能丧失履行债务能力的其他情形的，可以中止履行。",
+    "keywords": [
+      "不安抗辩",
+      "资信恶化",
+      "中止履行"
+    ],
+    "applicable_contracts": [
+      "大额采购合同",
+      "长期服务合同"
+    ],
+    "risk_rules": [
+      "CR-012",
+      "CR-021"
+    ],
+    "lawyer_application": "设置资信恶化的预警、担保补足、暂停履行和解除程序。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百六十三",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百六十三条",
+    "chapter": "第一分编 通则 第七章 合同的权利义务终止",
+    "topic": "法定解除",
+    "legal_text": "有因不可抗力致使不能实现合同目的、在履行期限届满前明确表示或者以行为表明不履行主要债务、迟延履行主要债务经催告后在合理期限内仍未履行等情形之一的，当事人可以解除合同。",
+    "keywords": [
+      "法定解除",
+      "根本违约",
+      "催告",
+      "不可抗力"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-021",
+      "CR-024"
+    ],
+    "lawyer_application": "将重大违约、催告期限和不可抗力后的解除权与法定解除规则衔接。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百六十五",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百六十五条",
+    "chapter": "第一分编 通则 第七章 合同的权利义务终止",
+    "topic": "解除通知",
+    "legal_text": "当事人一方依法主张解除合同的，应当通知对方。合同自通知到达对方时解除；对方有异议的，任何一方当事人均可以请求人民法院或者仲裁机构确认解除行为的效力。",
+    "keywords": [
+      "解除通知",
+      "到达",
+      "异议",
+      "仲裁"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-021",
+      "CR-023",
+      "CR-031"
+    ],
+    "lawyer_application": "约定有效通知地址、渠道、送达推定和解除后的交接安排。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百六十六",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百六十六条",
+    "chapter": "第一分编 通则 第七章 合同的权利义务终止",
+    "topic": "解除后果",
+    "legal_text": "合同解除后，尚未履行的，终止履行；已经履行的，根据履行情况和合同性质，当事人可以请求恢复原状或者采取其他补救措施，并有权请求赔偿损失。",
+    "keywords": [
+      "合同解除",
+      "恢复原状",
+      "补救",
+      "赔偿损失"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-022",
+      "CR-023"
+    ],
+    "lawyer_application": "明确终止结算、返还、数据迁移、资料销毁及继续有效条款。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百七十七",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百七十七条",
+    "chapter": "第一分编 通则 第八章 违约责任",
+    "topic": "违约责任",
+    "legal_text": "当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。",
+    "keywords": [
+      "违约责任",
+      "继续履行",
+      "补救措施",
+      "赔偿"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-017",
+      "CR-019",
+      "CR-020"
+    ],
+    "lawyer_application": "按违约类型配置继续履行、修复、替代履行、退款与赔偿救济。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百八十四",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百八十四条",
+    "chapter": "第一分编 通则 第八章 违约责任",
+    "topic": "损失赔偿",
+    "legal_text": "当事人一方不履行合同义务或者履行合同义务不符合约定，造成对方损失的，损失赔偿额应当相当于因违约所造成的损失，包括合同履行后可以获得的利益；但是，不得超过违约一方订立合同时预见到或者应当预见到的因违约可能造成的损失。",
+    "keywords": [
+      "损失赔偿",
+      "可得利益",
+      "可预见规则"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-017",
+      "CR-019"
+    ],
+    "lawyer_application": "对可得利益、合理维权费用和可预见损失范围保留充分证据与约定。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百八十五",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百八十五条",
+    "chapter": "第一分编 通则 第八章 违约责任",
+    "topic": "违约金",
+    "legal_text": "当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。",
+    "keywords": [
+      "违约金",
+      "调整",
+      "损失赔偿"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-017"
+    ],
+    "lawyer_application": "按照迟延、质量、保密等风险分别设定合理违约金和累计上限。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  },
+  {
+    "law_id": "CC-CONTRACT-五百九十",
+    "law_name": "中华人民共和国民法典",
+    "article": "第五百九十条",
+    "chapter": "第一分编 通则 第八章 违约责任",
+    "topic": "不可抗力",
+    "legal_text": "当事人一方因不可抗力不能履行合同的，根据不可抗力的影响，部分或者全部免除责任，但是法律另有规定的除外。因不可抗力不能履行合同的，应当及时通知对方，以减轻可能给对方造成的损失，并应当在合理期限内提供证明。",
+    "keywords": [
+      "不可抗力",
+      "通知",
+      "证明",
+      "减损"
+    ],
+    "applicable_contracts": [
+      "各类商业合同"
+    ],
+    "risk_rules": [
+      "CR-024"
+    ],
+    "lawyer_application": "限定不可抗力范围，约定通知、证明、减损及长期持续时的退出机制。",
+    "source": "国家法律法规数据库：https://flk.npc.gov.cn/detail?fileId=&id=ff808081729d1efe01729d50b5c500bf&title=中华人民共和国民法典&type="
+  }
+]
+

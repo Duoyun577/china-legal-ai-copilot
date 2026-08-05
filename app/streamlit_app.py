@@ -5,6 +5,12 @@ from __future__ import annotations
 import sys
 import os
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from io import BytesIO
 sys.path.append(
     os.path.abspath(
         os.path.join(os.path.dirname(__file__), "..")

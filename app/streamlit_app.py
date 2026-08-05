@@ -833,39 +833,15 @@ def main() -> None:
         index=list(case_options).index(current_label),
     )
 
-    st.session_state["active_case_id"] = case_options[selected_label]
-
     selected_case_id = case_options[selected_label]
 
+    st.session_state["active_case_id"] = selected_case_id
 
+    # 暂时关闭案件记忆，恢复页面运行
     if selected_case_id is None:
         st.session_state.pop("case_memory", None)
-
     else:
-        try:
-            memory = LawyerMemory(manager).load(
-                selected_case_id,
-                sync=True,
-            )
-
-            st.session_state["case_memory"] = memory.as_dict()
-
-            st.sidebar.caption(
-                f"已加载案件记忆：咨询 {len(memory.consultation_history)} 次｜类案 {len(memory.similar_cases)} 个"
-            )
-
-        except Exception as exc:
-            log_exception(
-                "load_case_memory_failed",
-                exc,
-            )
-
-            st.session_state["case_memory"] = {}
-
-            st.sidebar.warning(
-                "案件记忆加载失败，已切换基础模式。"
-            )
-
+        st.session_state["case_memory"] = {}
 
     page = st.sidebar.radio(
         "功能导航",
@@ -883,7 +859,6 @@ def main() -> None:
         key="navigation",
     )
 
-
     pages = {
         "律师首页": render_home_page,
         "案件中心": render_case_center_page,
@@ -896,16 +871,17 @@ def main() -> None:
         "交付材料中心": render_delivery_center_page,
     }
 
-
     try:
         pages[page]()
-
     except Exception as exc:
         log_exception(
             f"page_render_failed page={page}",
             exc,
         )
-
         st.error(
-            "页面运行失败，错误详情已写入应用日志，请稍后重试。"
+            "页面运行失败，请查看日志。"
         )
+
+
+if __name__ == "__main__":
+    main()

@@ -25,10 +25,17 @@ from analytics.usage_tracker import (
     EVENT_LEGAL_CONSULTATION,
     EVENT_CONTRACT_REVIEW,
     EVENT_DOCUMENT_GENERATION,
-)from case_manager import CaseDatabaseBackup, CaseInitializer, CaseManager, EvidenceManager, LawyerReviewService
+)
+
+from case_manager import (
+    CaseDatabaseBackup,
+    CaseInitializer,
+    CaseManager,
+    EvidenceManager,
+    LawyerReviewService,
+)
 from case_manager.dashboard import build_lawyer_dashboard
 from case_manager.workflow import CaseWorkflow
-from analytics.usage_tracker import UsageTracker
 from contract_review_service import ContractReviewResult, ContractReviewService
 from document.contract_rewriter import AIContractRewriter, ContractRewriteError
 from document.contract_diff import ContractDiffGenerator

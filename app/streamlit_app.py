@@ -20,8 +20,12 @@ if PROJECT_ROOT not in sys.path:
 
 
 from ai.providers.deepseek_provider import DeepSeekProviderError
-from analytics.usage_tracker import UsageTracker
-from case_manager import CaseDatabaseBackup, CaseInitializer, CaseManager, EvidenceManager, LawyerReviewService
+from analytics.usage_tracker import (
+    UsageTracker,
+    EVENT_LEGAL_CONSULTATION,
+    EVENT_CONTRACT_REVIEW,
+    EVENT_DOCUMENT_GENERATION,
+)from case_manager import CaseDatabaseBackup, CaseInitializer, CaseManager, EvidenceManager, LawyerReviewService
 from case_manager.dashboard import build_lawyer_dashboard
 from case_manager.workflow import CaseWorkflow
 from analytics.usage_tracker import UsageTracker

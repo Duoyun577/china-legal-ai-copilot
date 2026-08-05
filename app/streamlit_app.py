@@ -795,27 +795,95 @@ def render_home_page() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="China Legal AI Copilot", page_icon="⚖️", layout="wide")
+    st.set_page_config(
+        page_title="China Legal AI Copilot",
+        page_icon="⚖️",
+        layout="wide",
+    )
+
     st.title("China Legal AI Copilot")
     st.sidebar.title("律师工作台")
+
     manager = get_case_manager()
+
     cases = manager.list_cases()
-    case_options = {"未选择案件": None, **{f"#{case.case_id} {case.name}": case.case_id for case in cases}}
+
+    case_options = {
+        "未选择案件": None,
+        **{
+            f"#{case.case_id} {case.name}": case.case_id
+            for case in cases
+        },
+    }
+
     current_case_id = active_case_id()
-    current_label = next((label for label, value in case_options.items() if value == current_case_id), "未选择案件")
-    selected_label = st.sidebar.selectbox("当前案件", list(case_options), index=list(case_options).index(current_label))
+
+    current_label = next(
+        (
+            label
+            for label, value in case_options.items()
+            if value == current_case_id
+        ),
+        "未选择案件",
+    )
+
+    selected_label = st.sidebar.selectbox(
+        "当前案件",
+        list(case_options),
+        index=list(case_options).index(current_label),
+    )
+
     st.session_state["active_case_id"] = case_options[selected_label]
+
     selected_case_id = case_options[selected_label]
+
+
     if selected_case_id is None:
         st.session_state.pop("case_memory", None)
+
     else:
-        memory = LawyerMemory(manager).load(selected_case_id, sync=True)
-        st.session_state["case_memory"] = memory.as_dict()
-        st.sidebar.caption(f"已加载案件记忆：咨询 {len(memory.consultation_history)} 次｜类案 {len(memory.similar_cases)} 个")
+        try:
+            memory = LawyerMemory(manager).load(
+                selected_case_id,
+                sync=True,
+            )
+
+            st.session_state["case_memory"] = memory.as_dict()
+
+            st.sidebar.caption(
+                f"已加载案件记忆：咨询 {len(memory.consultation_history)} 次｜类案 {len(memory.similar_cases)} 个"
+            )
+
+        except Exception as exc:
+            log_exception(
+                "load_case_memory_failed",
+                exc,
+            )
+
+            st.session_state["case_memory"] = {}
+
+            st.sidebar.warning(
+                "案件记忆加载失败，已切换基础模式。"
+            )
+
+
     page = st.sidebar.radio(
-        "功能导航", ("律师首页", "案件中心", "证据管理", "庭审辅助", "合同审查", "法条检索", "法律咨询", "文书生成", "交付材料中心"),
+        "功能导航",
+        (
+            "律师首页",
+            "案件中心",
+            "证据管理",
+            "庭审辅助",
+            "合同审查",
+            "法条检索",
+            "法律咨询",
+            "文书生成",
+            "交付材料中心",
+        ),
         key="navigation",
     )
+
+
     pages = {
         "律师首页": render_home_page,
         "案件中心": render_case_center_page,
@@ -827,12 +895,17 @@ def main() -> None:
         "文书生成": render_lawsuit_generator_page,
         "交付材料中心": render_delivery_center_page,
     }
+
+
     try:
         pages[page]()
+
     except Exception as exc:
-        log_exception(f"page_render_failed page={page}", exc)
-        st.error("页面运行失败，错误详情已写入应用日志，请稍后重试。")
+        log_exception(
+            f"page_render_failed page={page}",
+            exc,
+        )
 
-
-if __name__ == "__main__":
-    main()
+        st.error(
+            "页面运行失败，错误详情已写入应用日志，请稍后重试。"
+        )

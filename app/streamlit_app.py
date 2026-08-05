@@ -1,25 +1,26 @@
-""""China Legal AI Copilot 的 Streamlit 合同审查界面。"""
+"""China Legal AI Copilot 的 Streamlit 合同审查界面。"""
 
 from __future__ import annotations
 
-import sys
 import os
+import sys
+from io import BytesIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from typing import Callable
+
+import pandas as pd
+import streamlit as st
+
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from io import BytesIO
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
 
-from io import BytesIO
-from pathlib import Path
 from ai.providers.deepseek_provider import DeepSeekProviderError
+from analytics.usage_tracker import UsageTracker
 from case_manager import CaseDatabaseBackup, CaseInitializer, CaseManager, EvidenceManager, LawyerReviewService
 from case_manager.dashboard import build_lawyer_dashboard
 from case_manager.workflow import CaseWorkflow

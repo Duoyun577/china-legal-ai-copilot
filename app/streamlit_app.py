@@ -351,13 +351,12 @@ def render_contract_review_page() -> None:
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         use_container_width=True,
     )
-    render_lawyer_review(
-        "contract_revision",
-        [f"{Path(safe_filename).stem}_AI修订版.docx", f"{Path(safe_filename).stem}_合同修改说明.docx"],
-        key="contract_revision_review",
-        related_analysis={"risk_count": len(review.risks), "overall_level": overall_risk_level(review)},
-    )
-
+# render_lawyer_review(
+#     "contract_revision",
+#     [f"{Path(safe_filename).stem}_AI修订版.docx",f"{Path(safe_filename).stem}_合同修改说明.docx"],
+#     key="contract_revision_review",
+#     related_analysis={"risk_count": len(review.risks),"overall_level":overall_risk_level(review)},
+# )
 
 def render_legal_search_page() -> None:
     st.header("法条检索")

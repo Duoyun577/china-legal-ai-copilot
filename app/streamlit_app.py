@@ -11,6 +11,7 @@ from typing import Callable
 
 import pandas as pd
 import streamlit as st
+from docx import Document
 
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

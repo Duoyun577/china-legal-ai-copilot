@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 
-from contract_review_service import ContractReviewResult
+from app.contract_review_service import ContractReviewResult
 from legal_assistant.citation_utils import risk_citations
 
 

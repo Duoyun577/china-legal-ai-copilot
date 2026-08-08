@@ -23,6 +23,7 @@ if PROJECT_ROOT not in sys.path:
 from ai.providers.deepseek_provider import DeepSeekProviderError
 from analytics.usage_tracker import (
     UsageTracker,
+    UsageQuotaExceeded,
     EVENT_LEGAL_CONSULTATION,
     EVENT_CONTRACT_REVIEW,
     EVENT_DOCUMENT_GENERATION,
@@ -37,32 +38,35 @@ from case_manager import (
 )
 from case_manager.dashboard import build_lawyer_dashboard
 from case_manager.workflow import CaseWorkflow
-from contract_review_service import ContractReviewResult, ContractReviewService
+from app.contract_review_service import ContractReviewResult, ContractReviewService
 from document.contract_rewriter import AIContractRewriter, ContractRewriteError
 from document.contract_diff import ContractDiffGenerator
 from document.contract_parser import ContractDocumentParser, DocumentParseError
 from document.report_generator import ContractReviewReportGenerator
 from delivery_center import LitigationPackageError
 from legal_assistant.assistant import LegalAssistant, LegalAssistantError
+from legal_assistant.analysis_cache import AnalysisCache
 from legal_assistant.case_analysis_report import CaseAnalysisError
 from legal_assistant.legal_search_adapter import LegalKnowledgeSearch
 from legal_assistant.hearing_assistant import HearingAssistant
 from lawyer_memory import LawyerMemory
 from lawsuit_generator.civil_complaint import CivilComplaintError, CivilComplaintGenerator
 from lawsuit_generator.pleading_service import PleadingGenerationError
-from report_service import ReportService
+from app.report_service import ReportService
 from config.settings import settings
 from security.file_security import FileSecurityError, secure_filename, validate_uploaded_file
+from security.auth import current_user, render_user_controls, require_user
+from utils.database import DatabaseConfigurationError
 from utils.logger import initialize_logging, log_exception
 
 
 logger = initialize_logging()
-usage_tracker = UsageTracker()
 try:
     _startup_manager = CaseManager()
-    CaseDatabaseBackup(_startup_manager.database_path).automatic_backup(
-        _startup_manager.database_path.parent / "backups"
-    )
+    if _startup_manager.database_path is not None:
+        CaseDatabaseBackup(_startup_manager.database_path).automatic_backup(
+            _startup_manager.database_path.parent / "backups"
+        )
 except Exception as exc:
     log_exception("automatic_case_database_backup_failed", exc)
 
@@ -80,8 +84,28 @@ class UploadValidationError(FileSecurityError):
     """上传文件不满足 Web 产品层约束。"""
 
 
+@st.cache_resource
+def _case_manager_for_user(user_id: str) -> CaseManager:
+    return CaseManager(user_id=user_id)
+
+
 def get_case_manager() -> CaseManager:
-    return CaseManager()
+    user = current_user()
+    return _case_manager_for_user(user.user_id if user is not None else "local")
+
+
+@st.cache_resource
+def _usage_tracker_for_user(user_id: str, is_admin: bool) -> UsageTracker:
+    return UsageTracker(user_id=user_id, quota_exempt=is_admin)
+
+
+def get_usage_tracker() -> UsageTracker:
+    user = current_user()
+    if user is None:
+        return _usage_tracker_for_user("local", False)
+    tracker = _usage_tracker_for_user(user.user_id, user.is_admin)
+    tracker.register_user(user.email, user.name, is_admin=user.is_admin)
+    return tracker
 
 
 def active_case_id() -> int | None:
@@ -274,7 +298,7 @@ def render_contract_review_page() -> None:
                 def show_progress(step: int, message: str) -> None:
                     process_status.write(f"步骤{step}：{message}")
 
-                with usage_tracker.measure(EVENT_CONTRACT_REVIEW):
+                with get_usage_tracker().measure(EVENT_CONTRACT_REVIEW):
                     review, advice_document, revised_contract = generate_download_documents(
                         safe_filename, content, progress_callback=show_progress,
                     )
@@ -411,8 +435,14 @@ def render_legal_assistant_page() -> None:
     if st.button("生成法律分析", type="primary", use_container_width=True):
         try:
             with st.spinner("正在检索法律依据并生成分析..."):
-                with usage_tracker.measure(EVENT_LEGAL_CONSULTATION):
-                    st.session_state["legal_analysis"] = LegalAssistant().analyze(question, mode=analysis_mode)
+                user = current_user()
+                cache = AnalysisCache(user_id=user.user_id if user is not None else "local")
+                assistant = LegalAssistant(cache=cache)
+                if analysis_mode == "deep":
+                    with get_usage_tracker().measure(EVENT_LEGAL_CONSULTATION):
+                        st.session_state["legal_analysis"] = assistant.analyze(question, mode=analysis_mode)
+                else:
+                    st.session_state["legal_analysis"] = assistant.analyze(question, mode=analysis_mode)
                 manager = get_case_manager()
                 if active_case_id() is None:
                     initialized = CaseInitializer(manager).initialize(question, st.session_state["legal_analysis"])
@@ -493,7 +523,8 @@ def render_legal_assistant_page() -> None:
     if active_case_id() is not None and st.button("生成《案件法律分析报告》", use_container_width=True):
         try:
             with st.spinner("正在整理案件事实并生成法律分析报告..."):
-                analysis, report = CaseWorkflow(get_case_manager()).generate_case_analysis(active_case_id())
+                with get_usage_tracker().measure(EVENT_LEGAL_CONSULTATION):
+                    analysis, report = CaseWorkflow(get_case_manager()).generate_case_analysis(active_case_id())
                 st.session_state["case_analysis"] = analysis
                 st.session_state["case_analysis_report"] = report
             st.success("《案件法律分析报告》已生成并保存到当前案件。")
@@ -522,7 +553,7 @@ def render_lawsuit_generator_page() -> None:
         if st.button("生成律师版和法院提交版诉状", type="primary", use_container_width=True):
             try:
                 with st.spinner("正在读取案件记忆、法律分析、类案和证据体系..."):
-                    with usage_tracker.measure(EVENT_DOCUMENT_GENERATION):
+                    with get_usage_tracker().measure(EVENT_DOCUMENT_GENERATION):
                         st.session_state["case_pleadings"] = CaseWorkflow(get_case_manager()).generate_pleadings_from_case(active_case_id())
                 st.success("律师工作版和法院提交版已生成并保存到当前案件。")
             except (ValueError, CivilComplaintError, PleadingGenerationError) as exc:
@@ -556,7 +587,7 @@ def render_lawsuit_generator_page() -> None:
     if st.button("生成民事起诉状", type="primary", use_container_width=True):
         try:
             with st.spinner("正在生成民事起诉状..."):
-                with usage_tracker.measure(EVENT_DOCUMENT_GENERATION):
+                with get_usage_tracker().measure(EVENT_DOCUMENT_GENERATION):
                     st.session_state["civil_complaint"] = CivilComplaintGenerator().generate(facts)
                 if active_case_id() is not None:
                     get_case_manager().save_file(active_case_id(), "generated_document", "民事起诉状_AI初稿.docx", st.session_state["civil_complaint"], "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
@@ -667,7 +698,7 @@ def render_delivery_center_page() -> None:
     if st.button("生成诉讼材料包", type="primary", use_container_width=True):
         try:
             with st.spinner("正在生成五份诉讼交付材料..."):
-                with usage_tracker.measure(EVENT_DOCUMENT_GENERATION):
+                with get_usage_tracker().measure(EVENT_DOCUMENT_GENERATION):
                     st.session_state["litigation_package"] = CaseWorkflow(manager).generate_litigation_package(case_id)
             st.success("诉讼材料包已生成，五份文件均已保存到当前案件并写入时间线。")
         except (ValueError, LitigationPackageError, CivilComplaintError) as exc:
@@ -793,6 +824,45 @@ def render_home_page() -> None:
             mime=item.file.mime_type, key=f"home_file_{item.file.file_id}", use_container_width=True,
         )
 
+    user = current_user()
+    if user is not None and user.is_admin:
+        render_admin_dashboard()
+
+
+def render_admin_dashboard() -> None:
+    """Show administrators a metadata-only database and quota overview."""
+    st.divider()
+    st.subheader("家庭使用数据看板")
+    tracker = get_usage_tracker()
+    rows = tracker.admin_summary()
+    case_counts = get_case_manager().admin_case_counts()
+    if not rows:
+        st.info("暂无家庭成员使用记录。")
+        return
+
+    frame = pd.DataFrame(rows)
+    frame["case_count"] = frame["user_id"].map(case_counts).fillna(0).astype(int)
+    display = frame.rename(columns={
+        "email": "用户邮箱",
+        "display_name": "姓名",
+        "is_admin": "管理员",
+        "last_seen_at": "最近访问",
+        "total_calls": "AI 调用总数",
+        "successful_calls": "成功调用数",
+        "case_count": "案件数量",
+    })
+    st.dataframe(
+        display[["用户邮箱", "姓名", "管理员", "案件数量", "AI 调用总数", "成功调用数", "最近访问"]],
+        use_container_width=True,
+        hide_index=True,
+    )
+    chart = display.set_index("用户邮箱")[["案件数量", "AI 调用总数"]]
+    st.bar_chart(chart)
+    st.caption(
+        f"普通用户限额：每日 {settings.daily_api_limit} 次，每月 {settings.monthly_api_limit} 次；"
+        "管理员账号不受普通限额限制。看板只展示元数据，不展示合同或案件正文。"
+    )
+
 
 def main() -> None:
     st.set_page_config(
@@ -801,10 +871,25 @@ def main() -> None:
         layout="wide",
     )
 
+    user = require_user()
+
     st.title("China Legal AI Copilot")
     st.sidebar.title("律师工作台")
-
-    manager = get_case_manager()
+    render_user_controls(user)
+    try:
+        quota = get_usage_tracker().quota_status()
+        manager = get_case_manager()
+    except DatabaseConfigurationError as exc:
+        log_exception("database_initialization_failed", exc)
+        st.error("数据服务暂时不可用，请稍后重试或联系管理员。您的请求尚未调用 AI，也不会消耗额度。")
+        st.stop()
+        return
+    if user.is_admin:
+        st.sidebar.caption("管理员账号：API 普通限额豁免")
+    else:
+        st.sidebar.caption(
+            f"AI 额度：今日剩余 {quota.daily_remaining} 次｜本月剩余 {quota.monthly_remaining} 次"
+        )
 
     cases = manager.list_cases()
 
@@ -873,6 +958,8 @@ def main() -> None:
 
     try:
         pages[page]()
+    except UsageQuotaExceeded as exc:
+        st.warning(str(exc))
     except Exception as exc:
         log_exception(
             f"page_render_failed page={page}",

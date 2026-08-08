@@ -5,8 +5,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from contract_review_service import ContractReviewService
-from report_service import ReportService
+from app.contract_review_service import ContractReviewService
+from app.report_service import ReportService
 from analytics.usage_tracker import EVENT_CONTRACT_REVIEW, UsageTracker
 from utils.logger import initialize_logging, log_exception
 

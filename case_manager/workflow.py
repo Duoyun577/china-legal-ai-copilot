@@ -36,7 +36,7 @@ class CaseWorkflow:
         self._pleading_service = pleading_service or (LitigationPleadingService() if complaint_generator is None else None)
         self._package_generator = package_generator or LitigationPackageGenerator()
         self._memory = memory or LawyerMemory(manager)
-        self._analysis_cache = analysis_cache or AnalysisCache(manager.database_path)
+        self._analysis_cache = analysis_cache or AnalysisCache(manager.database_target, user_id=manager.user_id)
 
     def generate_case_analysis(self, case_id: int) -> tuple[dict, bytes]:
         case = self._manager.get_case(case_id)

@@ -6,7 +6,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from rule_service import RuleMatch, RuleService
+from app.rule_service import RuleMatch, RuleService
 
 
 @dataclass(frozen=True)

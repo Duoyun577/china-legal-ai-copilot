@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import json
-import sqlite3
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from utils.database import Database
 
 
 @dataclass(frozen=True)
@@ -34,20 +35,18 @@ class CaseMemoryStore:
         "similar_cases", "evidence_status", "consultation_history",
     )
 
-    def __init__(self, database_path: Path) -> None:
-        self.database_path = Path(database_path)
-        self.database_path.parent.mkdir(parents=True, exist_ok=True)
+    def __init__(self, database_path: str | Path) -> None:
+        self.database_target = database_path
+        self._database = Database(database_path)
+        self.database_path = self._database.path
         self._initialize()
 
-    def _connect(self) -> sqlite3.Connection:
-        connection = sqlite3.connect(self.database_path)
-        connection.row_factory = sqlite3.Row
-        return connection
+    def _connect(self):
+        return self._database.connect()
 
     def _initialize(self) -> None:
         with self._connect() as connection:
-            connection.execute(
-                """
+            sqlite_schema = """
                 CREATE TABLE IF NOT EXISTS case_memories (
                     case_id INTEGER PRIMARY KEY,
                     case_facts_json TEXT NOT NULL,
@@ -61,7 +60,10 @@ class CaseMemoryStore:
                     FOREIGN KEY (case_id) REFERENCES cases(case_id) ON DELETE CASCADE
                 )
                 """
-            )
+            postgres_schema = [
+                "CREATE TABLE IF NOT EXISTS case_memories (case_id BIGINT PRIMARY KEY REFERENCES cases(case_id) ON DELETE CASCADE, case_facts_json TEXT NOT NULL, legal_relationships_json TEXT NOT NULL, dispute_issues_json TEXT NOT NULL, legal_analysis_json TEXT NOT NULL, similar_cases_json TEXT NOT NULL, evidence_status_json TEXT NOT NULL, consultation_history_json TEXT NOT NULL, updated_at TEXT NOT NULL)"
+            ]
+            self._database.execute_script(connection, sqlite_schema, postgres_schema)
 
     def load(self, case_id: int) -> CaseMemory:
         with self._connect() as connection:

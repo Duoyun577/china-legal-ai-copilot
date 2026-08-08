@@ -14,7 +14,7 @@ class LawyerMemory:
 
     def __init__(self, manager: CaseManager) -> None:
         self._manager = manager
-        self._store = CaseMemoryStore(manager.database_path)
+        self._store = CaseMemoryStore(manager.database_target)
 
     def load(self, case_id: int, *, sync: bool = False) -> CaseMemory:
         self._manager.get_case(case_id)

@@ -16,7 +16,14 @@ PACKAGE_DATA = {
         {"number": 2, "name": "付款记录", "source": "银行", "purpose": "证明付款情况", "status": "待补充"},
     ],
     "evidence_explanations": ["服务合同用于证明双方权利义务。", "付款记录需进一步调取核实。"],
-    "legal_basis_list": ["《中华人民共和国民法典》第五百七十七条。"],
+    "legal_basis_list": [{
+        "law_name": "中华人民共和国民法典",
+        "article": "第五百七十七条",
+        "basis_text": "当事人一方不履行合同义务的，应当承担违约责任。",
+        "source": "国家法律法规数据库",
+        "note": "本案可结合合同履行情况适用。",
+        "internal_code": "value-kept-without-english-key",
+    }],
     "litigation_risk_analysis": ["被告履行情况和损失金额仍需举证。"],
 }
 
@@ -55,6 +62,15 @@ def test_litigation_package_generates_five_complete_docx_files(tmp_path: Path) -
     assert "证明目的" in docx_text(documents["证据目录.docx"])
     assert "待补充" in docx_text(documents["证据目录.docx"])
     assert "律师审核提示" in docx_text(documents["诉讼风险分析.docx"])
+    legal_basis_text = docx_text(documents["法律依据清单.docx"])
+    assert "法律名称：中华人民共和国民法典" in legal_basis_text
+    assert "条文编号：第五百七十七条" in legal_basis_text
+    assert "依据内容：当事人一方不履行合同义务的" in legal_basis_text
+    assert "来源：国家法律法规数据库" in legal_basis_text
+    assert "适用说明：本案可结合合同履行情况适用" in legal_basis_text
+    assert "law_name" not in legal_basis_text
+    assert "basis_text" not in legal_basis_text
+    assert "internal_code" not in legal_basis_text
 
 
 def test_delivery_package_is_saved_and_each_file_enters_timeline(tmp_path: Path) -> None:

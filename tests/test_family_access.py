@@ -58,12 +58,26 @@ def test_analysis_cache_is_namespaced_by_user(tmp_path: Path) -> None:
     assert bob.get("consultation", payload) is None
 
 
-def test_per_user_quota_blocks_paid_operation(tmp_path: Path) -> None:
+def test_per_user_quota_blocks_paid_operation(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("API_QUOTA_ENABLED", "true")
     tracker = UsageTracker(tmp_path / "usage.db", user_id="family", daily_limit=1, monthly_limit=2)
     tracker.record(EVENT_CONTRACT_REVIEW, 0.1)
 
     with pytest.raises(UsageQuotaExceeded, match="今日"):
         tracker.check_quota()
+
+
+def test_family_mode_disables_quota_but_keeps_usage_tracking(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("API_QUOTA_ENABLED", "false")
+    tracker = UsageTracker(tmp_path / "usage.db", user_id="family", daily_limit=1, monthly_limit=1)
+    tracker.record(EVENT_CONTRACT_REVIEW, 0.1)
+
+    status = tracker.check_quota()
+
+    assert status.daily_used == 1
+    assert tracker.statistics().contract_review_count == 1
 
 
 def test_admin_quota_exemption_and_visual_summary(tmp_path: Path) -> None:

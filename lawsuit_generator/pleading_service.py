@@ -12,6 +12,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 
 from ai.llm_client import LLMMessage, ProviderLLMClient
+from document.chinese_text import stringify_chinese
 from legal_assistant.legal_reference_validator import LegalReferenceValidator
 
 
@@ -136,13 +137,7 @@ evidence_system 每项包含 name、source、purpose、status。只能使用输�
 
     @staticmethod
     def _stringify(value) -> str:
-        if isinstance(value, str):
-            return value
-        if isinstance(value, dict):
-            return "；".join(f"{key}：{LitigationPleadingService._stringify(item)}" for key, item in value.items())
-        if isinstance(value, list):
-            return "；".join(LitigationPleadingService._stringify(item) for item in value)
-        return "" if value is None else str(value)
+        return stringify_chinese(value)
 
     @staticmethod
     def _legal_reference(value) -> str:

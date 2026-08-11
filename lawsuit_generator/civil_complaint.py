@@ -12,6 +12,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 
 from ai.llm_client import LLMMessage, ProviderLLMClient
+from document.chinese_text import stringify_chinese
 from legal_assistant.citation_utils import citation_dict, format_citation
 from legal_assistant.legal_search_adapter import LegalKnowledgeSearch
 
@@ -105,10 +106,4 @@ class CivilComplaintGenerator:
 
     @staticmethod
     def _stringify(value) -> str:
-        if isinstance(value, str):
-            return value
-        if isinstance(value, dict):
-            return "；".join(f"{key}：{CivilComplaintGenerator._stringify(item)}" for key, item in value.items())
-        if isinstance(value, list):
-            return "；".join(CivilComplaintGenerator._stringify(item) for item in value)
-        return "" if value is None else str(value)
+        return stringify_chinese(value)

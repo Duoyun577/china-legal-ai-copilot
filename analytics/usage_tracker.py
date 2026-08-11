@@ -129,7 +129,7 @@ class UsageTracker:
 
     def check_quota(self) -> QuotaStatus:
         status = self.quota_status()
-        if self.quota_exempt:
+        if not settings.api_quota_enabled or self.quota_exempt:
             return status
         if status.daily_used >= status.daily_limit:
             raise UsageQuotaExceeded(f"今日 AI 使用次数已达到上限（{status.daily_limit} 次），请明天再试。")

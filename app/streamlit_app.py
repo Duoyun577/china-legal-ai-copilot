@@ -858,10 +858,13 @@ def render_admin_dashboard() -> None:
     )
     chart = display.set_index("用户邮箱")[["案件数量", "AI 调用总数"]]
     st.bar_chart(chart)
-    st.caption(
-        f"普通用户限额：每日 {settings.daily_api_limit} 次，每月 {settings.monthly_api_limit} 次；"
-        "管理员账号不受普通限额限制。看板只展示元数据，不展示合同或案件正文。"
-    )
+    if settings.api_quota_enabled:
+        st.caption(
+            f"普通用户限额：每日 {settings.daily_api_limit} 次，每月 {settings.monthly_api_limit} 次；"
+            "管理员账号不受普通限额限制。看板只展示元数据，不展示合同或案件正文。"
+        )
+    else:
+        st.caption("家庭使用模式：API 次数限制已暂停，但仍保留调用统计。看板不展示合同或案件正文。")
 
 
 def main() -> None:
@@ -884,7 +887,9 @@ def main() -> None:
         st.error("数据服务暂时不可用，请稍后重试或联系管理员。您的请求尚未调用 AI，也不会消耗额度。")
         st.stop()
         return
-    if user.is_admin:
+    if not settings.api_quota_enabled:
+        st.sidebar.caption("家庭使用模式：API 次数不限（仍记录用量）")
+    elif user.is_admin:
         st.sidebar.caption("管理员账号：API 普通限额豁免")
     else:
         st.sidebar.caption(

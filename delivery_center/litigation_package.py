@@ -11,6 +11,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 
 from ai.llm_client import LLMMessage, ProviderLLMClient
+from document.chinese_text import stringify_chinese
 from lawsuit_generator.civil_complaint import CivilComplaintGenerator
 
 
@@ -120,10 +121,4 @@ evidence_catalog 每项应包含 number、name、source、purpose、status；缺
 
     @staticmethod
     def _stringify(value) -> str:
-        if isinstance(value, str):
-            return value
-        if isinstance(value, dict):
-            return "；".join(f"{key}：{LitigationPackageGenerator._stringify(item)}" for key, item in value.items())
-        if isinstance(value, list):
-            return "；".join(LitigationPackageGenerator._stringify(item) for item in value)
-        return "" if value is None else str(value)
+        return stringify_chinese(value)

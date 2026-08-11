@@ -2,7 +2,7 @@
 
 China Legal AI Copilot 是基于 Streamlit 的法律工作台。公网部署时应挂载持久化磁盘，并通过环境变量指定 SQLite 数据库位置。
 
-家庭/朋友长期使用版支持 Google 登录白名单、按用户数据隔离、Supabase PostgreSQL 持久化、每人 API 限额和管理员可视化看板。配置及安全启用顺序见 [FAMILY_DEPLOYMENT.md](FAMILY_DEPLOYMENT.md)。所有新能力默认关闭，未配置时保持原有本地兼容模式。
+家庭/朋友长期使用版支持 Google 登录白名单、按用户数据隔离、Supabase PostgreSQL 持久化、可选的每人 API 限额和管理员可视化看板。配置及安全启用顺序见 [FAMILY_DEPLOYMENT.md](FAMILY_DEPLOYMENT.md)。所有新能力默认关闭，未配置时保持原有本地兼容模式。
 
 ## 本地运行
 
@@ -25,6 +25,7 @@ streamlit run app/streamlit_app.py
 | `FAMILY_AUTH_ENABLED` | `false` | 是否启用 Google 登录及家庭白名单 |
 | `ALLOWED_USER_EMAILS` | 空 | 可登录邮箱，使用英文逗号分隔 |
 | `ADMIN_USER_EMAILS` | 空 | 管理员邮箱，使用英文逗号分隔 |
+| `API_QUOTA_ENABLED` | `false` | 是否启用普通用户 API 日/月次数限制；家庭使用阶段保持关闭 |
 | `DAILY_API_LIMIT` | `20` | 普通用户每日付费 AI 调用上限 |
 | `MONTHLY_API_LIMIT` | `300` | 普通用户每月付费 AI 调用上限 |
 | `MAX_UPLOAD_BYTES` | `10485760` | 单个上传文件大小上限（字节） |

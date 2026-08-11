@@ -94,6 +94,10 @@ class Settings:
         return _email_set("ADMIN_USER_EMAILS")
 
     @property
+    def api_quota_enabled(self) -> bool:
+        return _boolean("API_QUOTA_ENABLED", False)
+
+    @property
     def daily_api_limit(self) -> int:
         return _positive_int("DAILY_API_LIMIT", 20)
 

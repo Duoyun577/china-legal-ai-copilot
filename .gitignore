@@ -29,3 +29,12 @@ Thumbs.db
 
 # Backup
 backups/
+
+# Local-only tooling and runtime artifacts (not needed in cloud image)
+tools/cloudflared.exe
+tools/*.log
+tools/github_probe.py
+当前公网地址.txt
+
+# Pytest temp dirs
+pytest-of-duoyun/

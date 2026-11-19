@@ -54,6 +54,7 @@ from lawsuit_generator.civil_complaint import CivilComplaintError, CivilComplain
 from lawsuit_generator.pleading_service import PleadingGenerationError
 from app.report_service import ReportService
 from config.settings import settings
+from app.pwa import enable_pwa
 from security.file_security import FileSecurityError, secure_filename, validate_uploaded_file
 from security.auth import current_user, render_user_controls, require_user
 from utils.database import DatabaseConfigurationError
@@ -873,6 +874,8 @@ def main() -> None:
         page_icon="⚖️",
         layout="wide",
     )
+
+    enable_pwa()
 
     user = require_user()
 

@@ -1,0 +1,6 @@
+[server]
+# 允许应用提供 /app/static/ 下的 PWA 静态文件（manifest、图标）
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false

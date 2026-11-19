@@ -55,6 +55,7 @@ from lawsuit_generator.pleading_service import PleadingGenerationError
 from app.report_service import ReportService
 from config.settings import settings
 from app.pwa import enable_pwa
+from security.access_gate import require_access_password
 from security.file_security import FileSecurityError, secure_filename, validate_uploaded_file
 from security.auth import current_user, render_user_controls, require_user
 from utils.database import DatabaseConfigurationError
@@ -876,6 +877,8 @@ def main() -> None:
     )
 
     enable_pwa()
+
+    require_access_password()
 
     user = require_user()
 

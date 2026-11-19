@@ -7,6 +7,7 @@ from analytics.usage_tracker import EVENT_CONTRACT_REVIEW, UsageQuotaExceeded, U
 from case_manager import CaseManager
 from legal_assistant.analysis_cache import AnalysisCache
 from security.auth import user_from_claims, user_id_for_email
+from config.settings import settings
 from utils.database import _ConnectionProxy
 
 
@@ -28,6 +29,17 @@ def test_expired_identity_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("security.auth.time.time", lambda: 1000)
 
     assert user_from_claims({"email": "owner@example.com", "exp": 999}) is None
+
+
+def test_access_password_setting(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("ACCESS_PASSWORD", raising=False)
+    assert settings.access_password is None
+
+    monkeypatch.setenv("ACCESS_PASSWORD", "  secret123  ")
+    assert settings.access_password == "secret123"
+
+    monkeypatch.setenv("ACCESS_PASSWORD", "   ")
+    assert settings.access_password is None
 
 
 def test_case_data_is_isolated_between_users(tmp_path: Path) -> None:

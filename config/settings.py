@@ -86,6 +86,16 @@ class Settings:
         return _boolean("FAMILY_AUTH_ENABLED", False)
 
     @property
+    def access_password(self) -> str | None:
+        """Optional single-password gate for a public deployment.
+
+        Empty (default) = gate disabled, app behaves exactly as before. Set
+        ACCESS_PASSWORD to require visitors to enter this password once.
+        """
+        value = os.getenv("ACCESS_PASSWORD", "").strip()
+        return value or None
+
+    @property
     def allowed_user_emails(self) -> frozenset[str]:
         return _email_set("ALLOWED_USER_EMAILS")
 

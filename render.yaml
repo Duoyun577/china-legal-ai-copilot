@@ -20,3 +20,6 @@ services:
       # No Google login whitelist per user's choice.
       - key: FAMILY_AUTH_ENABLED
         value: "false"
+      # Optional single-password gate for the public URL. Leave empty to disable.
+      - key: ACCESS_PASSWORD
+        sync: false

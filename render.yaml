@@ -1,0 +1,22 @@
+# Render Blueprint ("Infrastructure as Code") for the Legal AI Copilot.
+# After signing up at https://render.com, choose "New > Blueprint", point it at
+# this repository's main branch, and Render will pick up this file automatically.
+# During setup you will be prompted for the two secret values below (DATABASE_URL
+# from Supabase and your DeepSeek API key). Everything else is pre-configured.
+services:
+  - type: web
+    name: legal-copilot
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /_stcore/health
+    envVars:
+      # Supabase PostgreSQL connection string (kept secret, prompted at setup).
+      - key: DATABASE_URL
+        sync: false
+      # DeepSeek API key (kept secret, prompted at setup).
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      # No Google login whitelist per user's choice.
+      - key: FAMILY_AUTH_ENABLED
+        value: "false"

@@ -12,6 +12,53 @@ class DatabaseConfigurationError(RuntimeError):
     """Raised when the configured persistent database cannot be used."""
 
 
+class _Row:
+    """Row object compatible with sqlite3.Row.
+
+    The codebase mixes numeric indexing (``row[0]``), column-name indexing
+    (``row["content"]``), value iteration (``for a, b in cursor``) and
+    ``dict(row)``.  sqlite3.Row supports all of these; psycopg's default
+    dict_row does not.  This shim keeps PostgreSQL behaviour identical to
+    SQLite so the same queries work on both backends.
+    """
+
+    __slots__ = ("_columns", "_values", "_mapping")
+
+    def __init__(self, columns, values) -> None:
+        self._columns = columns
+        self._values = values
+        self._mapping = dict(zip(columns, values))
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return self._values[key]
+        return self._mapping[key]
+
+    def keys(self):
+        return list(self._columns)
+
+    def __iter__(self):
+        return iter(self._values)
+
+    def __len__(self) -> int:
+        return len(self._values)
+
+    def get(self, key, default=None):
+        return self._mapping.get(key, default)
+
+    def __repr__(self) -> str:
+        return f"<Row {self._mapping!r}>"
+
+
+def _compat_row_factory(cursor):
+    """psycopg row factory returning :class:`_Row`, matching sqlite3.Row."""
+    description = cursor.description
+    if not description:
+        return lambda values: values
+    columns = [column.name for column in description]
+    return lambda values: _Row(columns, values)
+
+
 class _CursorProxy:
     def __init__(self, cursor: Any, identity_column: str | None = None) -> None:
         self._cursor = cursor
@@ -80,13 +127,12 @@ class Database:
         if self.is_postgres:
             try:
                 import psycopg
-                from psycopg.rows import dict_row
             except ImportError as exc:
                 raise DatabaseConfigurationError(
                     "已配置 DATABASE_URL，但缺少 psycopg 依赖。"
                 ) from exc
             try:
-                with psycopg.connect(str(self.target), row_factory=dict_row, connect_timeout=10) as connection:
+                with psycopg.connect(str(self.target), row_factory=_compat_row_factory, connect_timeout=10) as connection:
                     yield _ConnectionProxy(connection, postgres=True)
             except DatabaseConfigurationError:
                 raise

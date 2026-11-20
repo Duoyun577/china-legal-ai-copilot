@@ -1,6 +1,10 @@
 # Container image for the Legal AI Copilot workbench (Streamlit).
 # Works on Fly.io / Render / Railway / any Docker-hosting platform.
-FROM python:3.11-slim
+# Python 3.14 is required: the source uses PEP 701 nested f-strings
+# (e.g. legal_assistant/citation_utils.py) that do not parse on 3.11/3.12.
+# The whole app + 97 tests are verified locally on Python 3.14.3, so the
+# cloud image must match that exact interpreter version.
+FROM python:3.14-slim
 
 WORKDIR /app
 

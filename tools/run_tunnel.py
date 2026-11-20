@@ -19,6 +19,7 @@ for p in (ADDR, LOG):
         pass
 
 cmd = [CF, "tunnel", "--protocol", "http2", "--no-autoupdate",
+       "--edge-ip-version", "4",  # mainland networks: IPv6 edge dials time out on 7844
        "--url", "http://127.0.0.1:8501"]
 print("正在建立公网隧道，请稍候（最多约 60 秒）...", flush=True)
 

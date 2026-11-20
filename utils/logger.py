@@ -36,6 +36,12 @@ def get_logger() -> logging.Logger:
 
 def log_exception(context: str, exc: BaseException) -> None:
     get_logger().error(context, exc_info=(type(exc), exc, exc.__traceback__))
+    # Mirror the real error to stdout so hosted platforms (e.g. Render) surface it
+    # in their console logs; the rotating file log alone is invisible there.
+    try:
+        print(f"[{context}] {type(exc).__name__}: {exc}", file=sys.stderr, flush=True)
+    except Exception:
+        pass
 
 
 def _uncaught_exception_hook(exc_type: type[BaseException], exc: BaseException, traceback: TracebackType | None) -> None:

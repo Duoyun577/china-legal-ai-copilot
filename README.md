@@ -4,6 +4,14 @@ China Legal AI Copilot 是基于 Streamlit 的法律工作台。公网部署时�
 
 家庭/朋友长期使用版支持 Google 登录白名单、按用户数据隔离、Supabase PostgreSQL 持久化、可选的每人 API 限额和管理员可视化看板。配置及安全启用顺序见 [FAMILY_DEPLOYMENT.md](FAMILY_DEPLOYMENT.md)。所有新能力默认关闭，未配置时保持原有本地兼容模式。
 
+## 一键部署到 Render（固定网址 / 手机电脑 PWA）
+
+👉 **[点此一键部署到 Render](https://render.com/deploy?repo=https://github.com/Duoyun577/china-legal-ai-copilot)**
+
+点上面的链接会直达本仓库的 Render Blueprint 部署页。仓库自带 `render.yaml` 和 `Dockerfile`，部署时只需自己填写三项密钥：`DATABASE_URL`（Supabase/Neon 的 Session pooler 连接串，端口 5432）、`DEEPSEEK_API_KEY`、`ACCESS_PASSWORD`（可选访问口令）。**密钥请直接填在 Render 表单里，不要提交到仓库或写进聊天**。完整中文步骤见 [上云部署指南.md](上云部署指南.md)。
+
+> 注意：不要用 Render 自带的免费 Postgres（创建后 30 天过期），请用 Supabase 或 Neon 的长期免费数据库。
+
 ## 本地运行
 
 要求 Python 3.11 或更高版本。
